@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumo do Dia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Resumo por Letra</h1>
+    <div id="resumo"></div>
+    <div class="actions">
+        <button onclick="compartilhar()">Compartilhar no WhatsApp</button>
+        <button onclick="salvarHistorico()">Salvar no Histórico</button>
+        <button onclick="verHistorico()">Ver Histórico</button>
+        <a href="index.html" class="botao-flutuante">Voltar</a>
+    </div>
+    <script>
+        const data = JSON.parse(localStorage.getItem('registroLetras')) || {};
+        const resumoDiv = document.getElementById('resumo');
+        resumoDiv.innerHTML = Object.entries(data).map(([letra, valor]) =>
+            `<p><strong>${letra}:</strong> ${valor}</p>`).join('');
+
+        function compartilhar() {
+            const texto = Object.entries(data).map(([l, v]) => `${l}: ${v}`).join(', ');
+            const url = `https://api.whatsapp.com/send?text=Resumo%20do%20dia:%20${encodeURIComponent(texto)}`;
+            window.open(url, '_blank');
+        }
+
+        function salvarHistorico() {
+            const historico = JSON.parse(localStorage.getItem('historicoLetras')) || [];
+            const hoje = new Date().toLocaleDateString('pt-BR');
+            historico.push({ data: hoje, dados: data });
+            localStorage.setItem('historicoLetras', JSON.stringify(historico));
+            alert("Histórico salvo!");
+        }
+
+        function verHistorico() {
+            const historico = JSON.parse(localStorage.getItem('historicoLetras')) || [];
+            const txt = historico.map(h => `${h.data} - ` + Object.entries(h.dados).map(([l, v]) => `${l}: ${v}`).join(', ')).join('\n');
+            alert(txt || "Nenhum histórico salvo.");
+        }
+    </script>
+</body>
+</html>

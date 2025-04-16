@@ -1,0 +1,82 @@
+:root {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --accent-color: #03DAC6;
+    --button-color: #BB86FC;
+    --font: 'Segoe UI', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--font);
+    padding: 10px;
+    margin: 0;
+    text-align: center;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 20px 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+}
+
+button, .botao-flutuante {
+    padding: 12px;
+    margin: 8px 4px;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+button:hover, .botao-flutuante:hover {
+    transform: scale(1.05);
+}
+
+button {
+    background-color: var(--accent-color);
+    color: black;
+    width: 100%;
+}
+
+.botao-flutuante {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--button-color);
+    color: white;
+    text-decoration: none;
+    z-index: 1000;
+}
+
+.actions {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.25rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+        padding: 10px;
+    }
+
+    .botao-flutuante {
+        font-size: 0.9rem;
+        padding: 10px 14px;
+    }
+}
